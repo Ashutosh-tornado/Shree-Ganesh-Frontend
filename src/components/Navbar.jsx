@@ -7,13 +7,15 @@ import { cn } from '../utils';
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [cartCount, setCartCount] = useState(0);
   const location = useLocation();
 
-  const ShoppingBag = LucideIcons.ShoppingBag || LucideIcons.ShoppingBasket || LucideIcons.Briefcase;
-  const Menu = LucideIcons.Menu || LucideIcons.Layout;
-  const X = LucideIcons.X || LucideIcons.Plus;
-  const Search = LucideIcons.Search || LucideIcons.ZoomIn;
+  const ShoppingBag = LucideIcons.ShoppingBag;
+  const Menu = LucideIcons.Menu;
+  const X = LucideIcons.X;
+  const Search = LucideIcons.Search;
 
+  // 🔥 SCROLL
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -26,6 +28,45 @@ const Navbar = () => {
     setIsMobileMenuOpen(false);
   }, [location.pathname]);
 
+  // 🔥 FETCH CART COUNT
+  const fetchCartCount = async () => {
+    const TOKEN = localStorage.getItem("token");
+
+    // 🟡 Guest cart
+    if (!TOKEN) {
+      const guestCart = JSON.parse(localStorage.getItem("guestCart")) || [];
+      setCartCount(guestCart.length);
+      return;
+    }
+
+    // 🟢 User cart
+    try {
+      const res = await fetch("http://localhost:5000/cart", {
+        headers: {
+          "Authorization": "Bearer " + TOKEN
+        }
+      });
+
+      const data = await res.json();
+      setCartCount(data.cart?.length || 0);
+
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    fetchCartCount();
+
+    // 🔥 listen for updates
+    const handleUpdate = () => fetchCartCount();
+    window.addEventListener("cartUpdated", handleUpdate);
+
+    return () => {
+      window.removeEventListener("cartUpdated", handleUpdate);
+    };
+  }, []);
+
   const navLinks = [
     { name: 'Home', path: '/' },
     { name: 'Collection', path: '/collection' },
@@ -36,74 +77,49 @@ const Navbar = () => {
     <motion.header 
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-        isScrolled ? "bg-brand-light/80 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.03)] py-4" : "bg-transparent py-6 md:py-8"
+        isScrolled ? "bg-brand-light/80 backdrop-blur-xl py-4" : "bg-transparent py-6"
       )}
     >
-      <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
+      <div className="container mx-auto px-6 flex items-center justify-between">
         
-        <button 
-          className="md:hidden text-brand-dark hover:text-brand-accent transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        >
-          {isMobileMenuOpen ? <X size={26} strokeWidth={1.5} /> : <Menu size={26} strokeWidth={1.5} />}
+        <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
 
-        <nav className="hidden md:flex items-center gap-10">
+        <nav className="hidden md:flex gap-6">
           {navLinks.map((link) => (
-            <Link 
-              key={link.name} 
-              to={link.path}
-              className="text-xs font-semibold tracking-[0.1em] uppercase text-brand-dark hover:text-brand-accent transition-colors relative group"
-            >
+            <Link key={link.name} to={link.path}>
               {link.name}
-              <span className="absolute -bottom-2 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-brand-accent transition-all duration-300 group-hover:w-full opacity-0 group-hover:opacity-100"></span>
             </Link>
           ))}
         </nav>
 
-        <Link to="/" className="text-center absolute left-1/2 -translate-x-1/2 group">
-          <h1 className="font-serif text-2xl md:text-3xl font-bold tracking-tight text-brand-dark group-hover:text-brand-accent transition-colors duration-500">
-            Shree Ganesh<br/>
-            <span className="text-[10px] md:text-xs font-sans tracking-[0.35em] uppercase text-brand-accent font-medium block mt-1">Dry Fruits</span>
-          </h1>
+        <Link to="/">Shree Ganesh</Link>
+
+        {/* 🔥 CART */}
+        <Link to="/cart" className="relative">
+          <ShoppingBag size={22} />
+
+          {cartCount > 0 && (
+            <span className="absolute -top-2 -right-2 bg-brand-accent text-white text-xs w-5 h-5 flex items-center justify-center rounded-full">
+              {cartCount}
+            </span>
+          )}
         </Link>
 
-        <div className="flex items-center gap-6">
-          <button className="text-brand-dark hover:text-brand-accent transition-colors hidden sm:block">
-            <Search size={22} strokeWidth={1.5} />
-          </button>
-          <Link to="/cart" className="text-brand-dark hover:text-brand-accent transition-all duration-300 relative group hover:scale-110">
-            <ShoppingBag size={22} strokeWidth={1.5} />
-            <span className="absolute -top-1.5 -right-1.5 bg-brand-accent text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-md">
-              2
-            </span>
-          </Link>
-        </div>
       </div>
 
+      {/* MOBILE MENU */}
       <AnimatePresence>
         {isMobileMenuOpen && (
-          <motion.div 
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
-            className="absolute top-full left-0 right-0 bg-brand-light/95 backdrop-blur-xl shadow-lg border-t border-brand-accent/10 md:hidden flex flex-col items-center py-8"
-          >
-            <nav className="flex flex-col items-center gap-6">
-              {navLinks.map((link) => (
-                <Link 
-                  key={link.name} 
-                  to={link.path}
-                  className="text-lg font-serif tracking-wide text-brand-dark hover:text-brand-accent transition-colors"
-                >
-                  {link.name}
-                </Link>
-              ))}
-            </nav>
+          <motion.div>
+            {navLinks.map((link) => (
+              <Link key={link.name} to={link.path}>
+                {link.name}
+              </Link>
+            ))}
           </motion.div>
         )}
       </AnimatePresence>

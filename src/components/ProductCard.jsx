@@ -4,28 +4,49 @@ import { Plus } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { cn } from '../utils';
 
+import toast from "react-hot-toast";  
+
 const ProductCard = ({ product }) => {
 
   const addToCart = async () => {
     try {
 
-      // 🔥 always get fresh token
       const TOKEN = localStorage.getItem("token");
 
       console.log("TOKEN:", TOKEN);
 
-      // ❌ No token
-     if (!TOKEN) {
-  alert("Please login first ❌");
-  window.location.href = "/login"; // 🔥 redirect
-  return;
-}
+// 🟡 GUEST USER FLOW
+if (!TOKEN) {
+  let cart = JSON.parse(localStorage.getItem("guestCart")) || [];
 
+  const existingItem = cart.find(
+    (item) => item.productId._id === product._id
+  );
+
+  if (existingItem) {
+    existingItem.quantity += 1;
+  } else {
+    cart.push({
+      productId: product,
+      quantity: 1
+    });
+  }
+
+  localStorage.setItem("guestCart", JSON.stringify(cart));
+
+  // 🔥 update navbar/cart instantly
+  window.dispatchEvent(new Event("cartUpdated"));
+
+  toast.success("Added to cart 🛒");
+  return;
+} 
+
+      // 🟢 LOGGED IN USER FLOW
       const res = await fetch("http://localhost:5000/cart", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "Authorization": `Bearer ${TOKEN.trim()}`
+          "Authorization": `Bearer ${TOKEN}`
         },
         body: JSON.stringify({
           productId: product._id,
@@ -36,21 +57,23 @@ const ProductCard = ({ product }) => {
       const data = await res.json();
       console.log("RESPONSE:", data);
 
-      // ❌ API error
       if (!res.ok) {
         throw new Error(data.message || "Failed to add");
       }
 
-      alert("Added to cart 🛒");
+     toast.success("Added to cart 🛒");
+
+      window.dispatchEvent(new Event("cartUpdated"));
 
     } catch (err) {
       console.error("ADD TO CART ERROR:", err.message);
 
       if (err.message === "Invalid token ❌") {
-        alert("Session expired, please login again 🔐");
+        toast.error("Session expired, please login again 🔐");
         localStorage.removeItem("token");
+        window.location.href = "/login";
       } else {
-        alert("Error adding to cart ❌");
+        toast.error("Error adding to cart ❌");
       }
     }
   };
@@ -112,7 +135,8 @@ const ProductCard = ({ product }) => {
           <div className="absolute inset-0 w-0 bg-brand-accent transition-all duration-500 ease-out group-hover/btn:w-full"></div>
 
           <span className="relative flex items-center text-xs font-bold tracking-[0.2em] uppercase text-brand-dark group-hover/btn:text-white transition-colors duration-500">
-            <Plus size={16} className="mr-2 transition-transform duration-500 group-hover/btn:rotate-90" strokeWidth={1.5} /> Add to Cart
+            <Plus size={16} className="mr-2 transition-transform duration-500 group-hover/btn:rotate-90" strokeWidth={1.5} /> 
+            Add to Cart
           </span>
         </button>
 

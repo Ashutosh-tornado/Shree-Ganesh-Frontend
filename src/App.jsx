@@ -9,9 +9,11 @@ import CollectionPage from './pages/CollectionPage';
 import CartPage from './pages/CartPage';
 
 import ScrollToTop from './components/ScrollToTop';
-import ProtectedRoute from './components/ProtectedRoute';
 
 import Login from './pages/Login';
+import Signup from "./pages/Signup";
+
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
@@ -23,24 +25,39 @@ function App() {
 
         <Navbar />
 
+        <Toaster position="top-right"
+
+        toastOptions={{
+    style: {
+      background: "#2f1b14",
+      color: "#fff",
+      fontSize: "14px",
+      borderRadius: "8px"
+    },
+    success: {
+      iconTheme: {
+        primary: "#d4a373",
+        secondary: "#fff"
+      }
+    }
+  }}
+        
+        />
+
         <main className="flex-grow">
           <Routes>
 
             <Route path="/" element={<HomePage />} />
             <Route path="/collection" element={<CollectionPage />} />
 
-            {/* 🔐 Protected */}
-            <Route 
-              path="/cart" 
-              element={
-                <ProtectedRoute>
-                  <CartPage />
-                </ProtectedRoute>
-              } 
-            />
+            {/* 🛒 Cart is now PUBLIC (Guest + Logged in both) */}
+            <Route path="/cart" element={<CartPage />} />
 
-            {/* 🔥 Future ready */}
-            <Route path="/login" element={<Login></Login>} />
+            {/* 🔐 Auth pages */}
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+
+            {/* ✅ Payment success */}
             <Route path="/success" element={<div>Payment Success 🎉</div>} />
 
           </Routes>

@@ -6,8 +6,39 @@ const CartItem = ({ item, refreshCart }) => {
 
   const TOKEN = localStorage.getItem("token");
 
-  // ➕ Increase quantity
+  // 🟡 GUEST CART UPDATE
+  const updateGuestCart = (newQty) => {
+    let cart = JSON.parse(localStorage.getItem("guestCart")) || [];
+
+    cart = cart.map((cartItem) => {
+      if (cartItem.productId._id === item.productId._id) {
+        return { ...cartItem, quantity: newQty };
+      }
+      return cartItem;
+    });
+
+    localStorage.setItem("guestCart", JSON.stringify(cart));
+    refreshCart();
+  };
+
+  const removeGuestItem = () => {
+    let cart = JSON.parse(localStorage.getItem("guestCart")) || [];
+
+    cart = cart.filter(
+      (cartItem) => cartItem.productId._id !== item.productId._id
+    );
+
+    localStorage.setItem("guestCart", JSON.stringify(cart));
+    refreshCart();
+  };
+
+  // ➕ Increase
   const increaseQty = async () => {
+    if (!TOKEN) {
+      updateGuestCart(item.quantity + 1);
+      return;
+    }
+
     await fetch(`http://localhost:5000/cart/${item._id}`, {
       method: "PUT",
       headers: {
@@ -19,12 +50,17 @@ const CartItem = ({ item, refreshCart }) => {
       })
     });
 
-    refreshCart(); // 🔥 re-fetch cart
+    refreshCart();
   };
 
-  // ➖ Decrease quantity
+  // ➖ Decrease
   const decreaseQty = async () => {
     if (item.quantity === 1) return;
+
+    if (!TOKEN) {
+      updateGuestCart(item.quantity - 1);
+      return;
+    }
 
     await fetch(`http://localhost:5000/cart/${item._id}`, {
       method: "PUT",
@@ -40,8 +76,13 @@ const CartItem = ({ item, refreshCart }) => {
     refreshCart();
   };
 
-  // ❌ Remove item
+  // ❌ Remove
   const removeItem = async () => {
+    if (!TOKEN) {
+      removeGuestItem();
+      return;
+    }
+
     await fetch(`http://localhost:5000/cart/${item._id}`, {
       method: "DELETE",
       headers: {
@@ -60,69 +101,41 @@ const CartItem = ({ item, refreshCart }) => {
         <img 
           src={item.productId.image} 
           alt={item.productId.name} 
-          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-500"></div>
       </Link>
 
       {/* Details */}
       <div className="flex flex-col flex-grow justify-between py-2">
 
-        <div className="flex justify-between items-start gap-4">
+        <div className="flex justify-between">
           <div>
-            <Link to="#">
-              <h4 className="font-serif text-lg md:text-xl text-brand-dark hover:text-brand-accent transition-colors duration-300">
-                {item.productId.name}
-              </h4>
-            </Link>
-            <p className="text-xs md:text-sm text-brand-dark/50 mt-2 font-light">
-              Weight: {item.productId.weight || '500g'}
+            <h4 className="font-serif text-lg text-brand-dark">
+              {item.productId.name}
+            </h4>
+            <p className="text-sm text-brand-dark/50">
+              {item.productId.weight || '500g'}
             </p>
           </div>
 
-          <button 
-            onClick={removeItem} 
-            className="text-brand-dark/40 hover:text-red-500 transition-colors duration-300 p-2 -mr-2 hover:bg-red-50 rounded-full"
-            aria-label="Remove item"
-          >
-            <X size={18} strokeWidth={1.5} />
+          <button onClick={removeItem}>
+            <X size={18} />
           </button>
         </div>
 
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 mt-6">
+        <div className="flex justify-between mt-4">
 
-          {/* Quantity */}
-          <div className="flex items-center border border-brand-accent/20 bg-white shadow-sm rounded-sm">
-            <button 
-              onClick={decreaseQty} 
-              className="w-10 h-10 flex items-center justify-center text-brand-dark/60 hover:text-brand-dark hover:bg-brand-light/50 transition-colors"
-            >
-              <Minus size={14} />
-            </button>
-
-            <span className="w-10 text-center text-sm font-medium text-brand-dark">
-              {item.quantity}
-            </span>
-
-            <button 
-              onClick={increaseQty} 
-              className="w-10 h-10 flex items-center justify-center text-brand-dark/60 hover:text-brand-dark hover:bg-brand-light/50 transition-colors"
-            >
-              <Plus size={14} />
-            </button>
+          {/* Qty */}
+          <div className="flex items-center border px-2">
+            <button onClick={decreaseQty}><Minus size={14} /></button>
+            <span className="px-3">{item.quantity}</span>
+            <button onClick={increaseQty}><Plus size={14} /></button>
           </div>
 
           {/* Price */}
-          <div className="text-right">
-            <p className="font-sans font-semibold text-brand-accent text-lg">
-              ₹{(item.productId.price * item.quantity).toLocaleString('en-IN')}
-            </p>
-            {item.quantity > 1 && (
-              <p className="text-[10px] text-brand-dark/40 mt-1 uppercase tracking-widest">
-                ₹{item.productId.price.toLocaleString('en-IN')} each
-              </p>
-            )}
-          </div>
+          <p>
+            ₹{(item.productId.price * item.quantity).toLocaleString('en-IN')}
+          </p>
 
         </div>
       </div>
