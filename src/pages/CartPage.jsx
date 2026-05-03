@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import CartItem from '../components/CartItem';
 import Button from '../components/Button';
+import toast from "react-hot-toast";
 
 const CartPage = () => {
 
@@ -62,18 +63,49 @@ const CartPage = () => {
   const total = subtotal + shipping;
 
   // 🔐 CHECKOUT HANDLER
-  const handleCheckout = () => {
-    const token = localStorage.getItem("token");
+ const handleCheckout = async () => {
+  const token = localStorage.getItem("token");
 
-    if (!token) {
-      alert("Please login to continue 🔐");
-      navigate("/login");
-      return;
+  if (!token) {
+    toast.error("Please login to continue 🔐");
+    navigate("/login");
+    return;
+  }
+
+  try {
+    const loadingToast = toast.loading("Placing your order...");
+
+    const res = await fetch("http://localhost:5000/order", {
+      method: "POST",
+      headers: {
+        "Authorization": "Bearer " + token
+      }
+    });
+
+    const data = await res.json();
+
+    toast.dismiss(loadingToast);
+
+    if (res.ok) {
+      // 🔥 update cart
+      window.dispatchEvent(new Event("cartUpdated"));
+
+      toast.success("Order placed successfully 🎉");
+
+      // 🔥 redirect
+      setTimeout(() => {
+        navigate("/success");
+      }, 1000);
+
+    } else {
+      toast.error(data.message || "Order failed ❌");
     }
 
-    alert("Proceeding to payment 💳");
-    // 👉 later Razorpay here
-  };
+  } catch (err) {
+    console.log(err);
+    toast.error("Something went wrong ❌");
+  }
+};
 
   const fadeUpVariant = {
     hidden: { opacity: 0, y: 30 },

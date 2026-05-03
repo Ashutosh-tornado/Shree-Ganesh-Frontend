@@ -12,8 +12,13 @@ import ScrollToTop from './components/ScrollToTop';
 
 import Login from './pages/Login';
 import Signup from "./pages/Signup";
+import Success from "./pages/Success";
 
 import { Toaster } from "react-hot-toast";
+
+
+import Orders from "./pages/Orders";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -56,6 +61,18 @@ function App() {
             {/* 🔐 Auth pages */}
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+
+              {/* 📦 Orders (IMPORTANT 🔥) */}
+  <Route 
+    path="/orders" 
+    element={
+      <ProtectedRoute>
+        <Orders />
+      </ProtectedRoute>
+    } 
+  />
+
+<Route path="/success" element={<Success />} />
 
             {/* ✅ Payment success */}
             <Route path="/success" element={<div>Payment Success 🎉</div>} />
