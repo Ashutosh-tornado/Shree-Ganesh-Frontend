@@ -2,86 +2,165 @@ export const products = [
   {
     id: 1,
     name: 'Premium Californian Almonds',
-    description: 'Jumbo sized, crunchy and sweet almonds packed with nutrients.',
+    description: 'Jumbo sized premium almonds rich in protein and healthy fats.',
     price: 1299,
     category: 'Almonds',
     tag: 'Best Seller',
-    image: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&q=80&w=800'
+    image: '/products/almonds.webp'
   },
+
   {
     id: 2,
     name: 'Jumbo W240 Cashews',
-    description: 'Creamy, rich and perfectly roasted cashews from Mangalore.',
+    description: 'Creamy and crunchy premium quality cashews.',
     price: 1499,
     category: 'Cashews',
     tag: 'Premium Selection',
-    image: 'https://images.unsplash.com/photo-1599557034458-132d73315eb0?auto=format&fit=crop&q=80&w=800'
+    image: '/products/cashews.webp'
   },
+
   {
     id: 3,
     name: 'Iranian Pistachios',
-    description: 'Lightly salted and roasted pistachios with a distinct flavor.',
+    description: 'Fresh roasted pistachios with rich flavor and crunch.',
     price: 2199,
     category: 'Pistachios',
     tag: 'New Arrival',
-    image: 'https://images.unsplash.com/photo-1542990253-0d0f5be5f0ed?auto=format&fit=crop&q=80&w=800'
+    image: '/products/pistachios.webp'
   },
+
   {
     id: 4,
-    name: 'Omani Dates',
-    description: 'Soft, naturally sweet, and luscious premium dates.',
-    price: 899,
-    category: 'Dates',
+    name: 'Premium Raisins',
+    description: 'Naturally sweet raisins packed with antioxidants.',
+    price: 699,
+    category: 'Raisins',
     tag: '',
-    image: 'https://images.unsplash.com/photo-1616851083437-05c0800c732c?auto=format&fit=crop&q=80&w=800'
+    image: '/products/raisins.webp'
   },
+
   {
     id: 5,
-    name: 'Afghan Anjeer (Figs)',
-    description: 'Sun-dried figs, rich in fiber and natural sweetness.',
-    price: 1599,
-    category: 'Figs',
-    tag: 'Limited Stock',
-    image: 'https://images.unsplash.com/photo-1601004128956-6541f487e914?auto=format&fit=crop&q=80&w=800'
-  },
-  {
-    id: 6,
     name: 'Chilean Walnuts',
-    description: 'Premium light halves, crisp and full of flavor.',
+    description: 'Crunchy premium walnuts full of omega-3 goodness.',
     price: 1899,
     category: 'Walnuts',
     tag: '',
-    image: 'https://images.unsplash.com/photo-1574519961609-b13c3835f8d2?auto=format&fit=crop&q=80&w=800'
+    image: '/products/shelled-walnuts.webp'
   },
+
+  {
+    id: 6,
+    name: 'Afghan Dry Fig (Anjeer)',
+    description: 'Soft and naturally sweet Afghan anjeer rich in fiber.',
+    price: 1599,
+    category: 'Dry Fig',
+    tag: 'Limited Stock',
+    image: '/products/anjeer.webp'
+  },
+
   {
     id: 7,
-    name: 'Royal Nut Mix',
-    description: 'A luxurious blend of premium nuts and berries.',
-    price: 2499,
-    category: 'Mixes',
-    tag: 'Best Seller',
-    image: 'https://images.unsplash.com/photo-1596660603099-03a116f1c4e7?auto=format&fit=crop&q=80&w=800'
+    name: 'Premium Dried Dates',
+    description: 'Naturally dried dates with rich caramel sweetness.',
+    price: 899,
+    category: 'Dates',
+    tag: '',
+    image: '/products/dried-dates.webp'
   },
+
   {
     id: 8,
-    name: 'Roasted & Salted Almonds',
-    description: 'Perfectly roasted almonds with a hint of sea salt.',
-    price: 1399,
-    category: 'Almonds',
-    tag: '',
-    image: 'https://images.unsplash.com/photo-1508061253366-f7da158b6d46?auto=format&fit=crop&q=80&w=800'
-  }
-];
+    name: 'Premium Arabian Dates',
+    description: 'Soft, juicy and luxurious premium quality dates.',
+    price: 1199,
+    category: 'Dates',
+    tag: 'Best Seller',
+    image: '/products/premium-dates.webp'
+  },
 
-export const featuredProducts = products.slice(0, 3);
+  {
+    id: 9,
+    name: 'Walnut Kernels',
+    description: 'Handpicked walnut kernels with rich buttery texture.',
+    price: 2099,
+    category: 'Walnuts',
+    tag: '',
+    image: '/products/walnut-kernels.webp'
+  },
+
+  {
+    id: 10,
+    name: 'Turkish Apricots',
+    description: 'Sweet and chewy apricots loaded with nutrients.',
+    price: 1399,
+    category: 'Apricots',
+    tag: '',
+    image: '/products/apricots.webp'
+  },
+
+  {
+    id: 11,
+    name: 'Royal Mix Dry Fruits',
+    description: 'A luxurious mix of premium nuts and dry fruits.',
+    price: 2499,
+    category: 'Mixed',
+    tag: 'Premium Selection',
+    image: '/products/mixed-dry-fruits.webp'
+  },
+
+  {
+    id: 12,
+    name: 'Mamra Badam',
+    description: 'High-quality Mamra almonds known for rich nutrition.',
+    price: 2899,
+    category: 'Almonds',
+    tag: 'Luxury',
+    image: '/products/mamra-badam.webp'
+  },
+
+  {
+    id: 13,
+    name: 'Mejdool Dates',
+    description: 'Large juicy Medjool dates with natural sweetness.',
+    price: 1799,
+    category: 'Dates',
+    tag: 'Premium',
+    image: '/products/mejdool-dates.webp'
+  },
+
+  {
+    id: 14,
+    name: 'Roasted Cashews',
+    description: 'Perfectly roasted cashews with rich buttery taste.',
+    price: 1599,
+    category: 'Cashews',
+    tag: '',
+    image: '/products/roasted-cashews.webp'
+  },
+];
+//   {
+//     id: 15,
+//     name: 'Shelled Walnuts',
+//     description: 'Premium shelled walnuts freshly packed for daily nutrition.',
+//     price: 1999,
+//     category: 'Walnuts',
+//     tag: '',
+//     image: '/products/shelled-walnuts.webp'
+//   }
+// ];
+
+export const featuredProducts = products.slice(0, 6);
 
 export const categories = [
   'All',
   'Almonds',
   'Cashews',
-  'Dates',
-  'Figs',
   'Pistachios',
+  'Dates',
   'Walnuts',
-  'Mixes'
+  'Dry Fig',
+  'Raisins',
+  'Apricots',
+  'Mixed'
 ];
