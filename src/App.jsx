@@ -20,6 +20,8 @@ import { Toaster } from "react-hot-toast";
 import Orders from "./pages/Orders";
 import ProtectedRoute from "./components/ProtectedRoute";
 
+import ProductDetails from "./pages/ProductDetails";
+
 function App() {
   return (
     <Router>
@@ -61,6 +63,8 @@ function App() {
             {/* 🔐 Auth pages */}
             <Route path="/signup" element={<Signup />} />
             <Route path="/login" element={<Login />} />
+
+            <Route path="/product/:id" element={<ProductDetails />} />
 
               {/* 📦 Orders (IMPORTANT 🔥) */}
   <Route 
