@@ -94,48 +94,72 @@ const CartItem = ({ item, refreshCart }) => {
   };
 
   return (
-    <div className="flex gap-6 py-10 group">
+    <div className="flex gap-8 py-10 group relative">
 
       {/* Image */}
-      <Link to="#" className="shrink-0 w-28 h-36 md:w-40 md:h-48 bg-[#f4f1eb] overflow-hidden relative">
+      <Link to={`/product/${item.productId._id}`} className="shrink-0 w-32 h-40 md:w-40 md:h-48 bg-white border border-[#EAE3D2] overflow-hidden relative rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center p-4">
+        <div className="absolute inset-0 bg-gradient-to-b from-[#EAE3D2]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
         <img 
           src={item.productId.image} 
           alt={item.productId.name} 
-          className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-contain mix-blend-multiply transition-transform duration-1000 ease-out group-hover:scale-110 drop-shadow-md"
         />
       </Link>
 
       {/* Details */}
       <div className="flex flex-col flex-grow justify-between py-2">
 
-        <div className="flex justify-between">
+        <div className="flex justify-between items-start gap-4">
           <div>
-            <h4 className="font-serif text-lg text-brand-dark">
-              {item.productId.name}
-            </h4>
-            <p className="text-sm text-brand-dark/50">
-              {item.productId.weight || '500g'}
+            <Link to={`/product/${item.productId._id}`}>
+              <h4 className="font-serif text-xl md:text-2xl text-[#1C110F] mb-1 group-hover:text-[#C5A365] transition-colors duration-300">
+                {item.productId.name}
+              </h4>
+            </Link>
+            <p className="text-xs uppercase tracking-widest font-bold text-[#1C110F]/50 mt-2">
+              {item.weight || '500g'}
             </p>
           </div>
 
-          <button onClick={removeItem}>
-            <X size={18} />
+          <button 
+            onClick={removeItem}
+            className="text-[#1C110F]/40 hover:text-red-500 transition-colors p-2 -mr-2"
+            title="Remove item"
+          >
+            <X size={20} strokeWidth={1.5} />
           </button>
         </div>
 
-        <div className="flex justify-between mt-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 mt-6">
 
           {/* Qty */}
-          <div className="flex items-center border px-2">
-            <button onClick={decreaseQty}><Minus size={14} /></button>
-            <span className="px-3">{item.quantity}</span>
-            <button onClick={increaseQty}><Plus size={14} /></button>
+          <div className="flex items-center border border-[#EAE3D2] bg-white rounded-sm h-10 overflow-hidden shadow-sm">
+            <button 
+              onClick={decreaseQty}
+              className="w-10 h-full flex items-center justify-center text-[#1C110F]/50 hover:text-[#C5A365] hover:bg-[#FDFBF7] transition-colors"
+            >
+              <Minus size={14} strokeWidth={2} />
+            </button>
+            <span className="w-10 text-center font-sans text-xs font-bold text-[#1C110F]">
+              {item.quantity}
+            </span>
+            <button 
+              onClick={increaseQty}
+              className="w-10 h-full flex items-center justify-center text-[#1C110F]/50 hover:text-[#C5A365] hover:bg-[#FDFBF7] transition-colors"
+            >
+              <Plus size={14} strokeWidth={2} />
+            </button>
           </div>
 
           {/* Price */}
-          <p>
-            ₹{(item.productId.price * item.quantity).toLocaleString('en-IN')}
-          </p>
+          <div className="text-right">
+            <p className="text-xs text-[#1C110F]/50 line-through mb-1">
+              ₹{((item.productId.price + 500) * item.quantity).toLocaleString('en-IN')}
+            </p>
+            <p className="text-xl font-serif text-[#1C110F]">
+              ₹{(item.productId.price * item.quantity).toLocaleString('en-IN')}
+            </p>
+          </div>
 
         </div>
       </div>
