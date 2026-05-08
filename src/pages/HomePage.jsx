@@ -14,9 +14,14 @@ const HomePage = () => {
     offset: ["start start", "end start"]
   });
 
-  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "80%"]);
+  const backgroundY = useTransform(scrollYProgress, [0, 1], ["0%", "40%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "60%"]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
+  const productY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  const floatY1 = useTransform(scrollYProgress, [0, 1], ["0%", "-30%"]);
+  const floatY2 = useTransform(scrollYProgress, [0, 1], ["0%", "-50%"]);
+  const floatY3 = useTransform(scrollYProgress, [0, 1], ["0%", "-20%"]);
 
   // 🔥 FETCH PRODUCTS
   useEffect(() => {
@@ -46,86 +51,135 @@ const HomePage = () => {
 
   return (
     <div className="bg-[#1C110F] text-brand-light font-sans selection:bg-brand-accent selection:text-white">
-      {/* SECTION 1 — HERO SECTION */}
-      <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden bg-gradient-to-b from-[#2A1810] to-[#110A08]">
-        {/* Cinematic Lighting & Effects */}
+      {/* SECTION 1 — CINEMATIC HERO SECTION */}
+      <section ref={heroRef} className="relative h-screen flex items-center justify-center overflow-hidden bg-[#0A0604] perspective-[1000px]">
+        {/* Cinematic Background & Lighting */}
         <div className="absolute inset-0 z-0">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#C5A365] rounded-full mix-blend-screen filter blur-[150px] opacity-20 animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-[#8B5E34] rounded-full mix-blend-screen filter blur-[150px] opacity-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-[#1A0F0A] via-[#0A0604] to-[#0A0604]" />
+          {/* Ambient Glow */}
+          <div className="absolute top-[-10%] right-[-5%] w-[600px] h-[600px] bg-[#C5A365]/10 rounded-full mix-blend-screen filter blur-[120px]" />
+          {/* Volumetric God Rays */}
+          <div className="absolute top-[-20%] right-1/4 w-[40vw] h-[150vh] bg-gradient-to-b from-[#FFF1C5]/5 to-transparent rotate-45 transform origin-top blur-3xl mix-blend-screen pointer-events-none" />
+          {/* Gold Highlights */}
+          <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] bg-[#D4AF37]/5 rounded-full blur-[100px] mix-blend-screen" />
+          {/* Vignette */}
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(10,6,4,0.85)_100%)] pointer-events-none" />
         </div>
 
-        {/* Floating Elements (Parallax) */}
-        <motion.div style={{ y: backgroundY }} className="absolute inset-0 z-0 pointer-events-none opacity-30">
-          <div className="absolute top-[15%] left-[10%] w-12 h-12 rounded-full border border-[#C5A365] opacity-20 blur-[1px]" />
-          <div className="absolute top-[40%] right-[15%] w-24 h-24 rounded-full bg-gradient-to-tr from-[#C5A365] to-transparent opacity-10 blur-sm" />
-          <div className="absolute bottom-[20%] left-[20%] w-16 h-16 rounded-full border border-white opacity-10 blur-[2px]" />
-          <Leaf className="absolute top-[30%] left-[25%] text-[#C5A365] opacity-20 w-8 h-8 -rotate-45" />
-          <Leaf className="absolute top-[60%] right-[25%] text-[#8B5E34] opacity-20 w-12 h-12 rotate-12" />
-        </motion.div>
-
-        {/* Background Huge Typography */}
+        {/* Massive Luxury Typography (Parallax Background) */}
         <motion.div 
-          style={{ y: backgroundY, opacity }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none z-0 overflow-hidden"
+          style={{ y: backgroundY, opacity: textOpacity }}
+          className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-0 overflow-hidden mix-blend-overlay"
         >
-          <h1 className="text-[15vw] font-serif font-bold text-white/[0.03] whitespace-nowrap tracking-tighter">
-            SHREE GANESH
-          </h1>
+          <div className="text-center w-full leading-[0.85] opacity-10">
+            <h1 className="text-[12vw] font-serif font-bold text-[#C5A365] whitespace-nowrap tracking-tighter">PURE LUXURY</h1>
+            <h1 className="text-[10vw] font-serif font-bold text-[#EAE3D2] whitespace-nowrap tracking-widest ml-12">NATURE'S FINEST</h1>
+            <h1 className="text-[14vw] font-serif font-bold text-[#8B5E34] whitespace-nowrap tracking-tighter -ml-12">AUTHENTIC</h1>
+          </div>
         </motion.div>
 
-        {/* Hero Content */}
-        <motion.div 
-          style={{ y: textY, opacity }}
-          initial="hidden"
-          animate="visible"
-          variants={staggerContainer}
-          className="relative z-10 max-w-5xl mx-auto flex flex-col items-center text-center px-6"
-        >
-          <motion.div variants={fadeUpVariant} className="flex items-center gap-4 mb-8">
-            <div className="w-12 h-[1px] bg-[#C5A365]" />
-            <span className="text-xs md:text-sm tracking-[0.4em] uppercase text-[#C5A365] font-semibold">
-              Nature's Finest
-            </span>
-            <div className="w-12 h-[1px] bg-[#C5A365]" />
-          </motion.div>
-          
-          <motion.h1 variants={fadeUpVariant} className="text-6xl md:text-8xl lg:text-9xl font-serif mb-6 text-white leading-[1.05]">
-            PURE<br/>
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37] italic font-light pr-4">
-              LUXURY
-            </span>
-          </motion.h1>
+        {/* Main Product Presentation */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-10 pointer-events-none">
+           {/* Ground Contact Shadow */}
+           <div className="absolute bottom-[20%] w-[500px] h-12 bg-black/80 blur-xl rounded-[100%] z-0 transform translate-y-16" />
+           
+           <motion.div 
+             style={{ y: productY }}
+             animate={{ y: [0, -15, 0] }}
+             transition={{ repeat: Infinity, duration: 6, ease: "easeInOut" }}
+             className="relative z-10 w-[80%] max-w-[450px] aspect-[3/4] flex items-center justify-center ml-[20%] md:ml-[30%]"
+           >
+             <img 
+               src="/products/mixed-dry-fruits.webp" 
+               alt="Premium Mixed Dry Fruits"
+               className="w-full h-full object-contain drop-shadow-[0_40px_60px_rgba(0,0,0,0.6)] pointer-events-auto"
+             />
+           </motion.div>
+        </div>
 
-          <motion.p variants={fadeUpVariant} className="mb-12 text-[#EAE3D2] max-w-2xl mx-auto text-lg md:text-xl font-light leading-relaxed">
-            Handpicked from the finest farms. 100% natural premium dry fruits crafted for purity, taste, and richness.
-          </motion.p>
+        {/* Floating Dry Fruits */}
+        <div className="absolute inset-0 z-20 pointer-events-none">
+           {/* Almonds */}
+           <motion.img 
+             style={{ y: floatY1 }} animate={{ rotate: [0, 15, 0] }} transition={{ repeat: Infinity, duration: 8, ease: "easeInOut" }}
+             src="/products/almonds.webp" className="absolute top-[20%] left-[45%] w-32 object-contain drop-shadow-2xl blur-[2px] opacity-80" 
+           />
+           <motion.img 
+             style={{ y: floatY2 }} animate={{ rotate: [0, -15, 0] }} transition={{ repeat: Infinity, duration: 10, ease: "easeInOut" }}
+             src="/products/almonds.webp" className="absolute bottom-[25%] right-[15%] w-24 object-contain drop-shadow-2xl blur-[1px] opacity-90" 
+           />
+           {/* Cashews */}
+           <motion.img 
+             style={{ y: floatY3 }} animate={{ rotate: [0, 20, 0] }} transition={{ repeat: Infinity, duration: 12, ease: "easeInOut" }}
+             src="/products/cashews.webp" className="absolute top-[35%] right-[25%] w-40 object-contain drop-shadow-2xl blur-[3px] opacity-70" 
+           />
+           {/* Pistachios */}
+           <motion.img 
+             style={{ y: floatY1 }} animate={{ rotate: [0, -10, 0] }} transition={{ repeat: Infinity, duration: 9, ease: "easeInOut" }}
+             src="/products/pistachios.webp" className="absolute bottom-[15%] left-[35%] w-28 object-contain drop-shadow-2xl blur-[1px] opacity-80" 
+           />
+           
+           {/* Foreground out-of-focus elements */}
+           <motion.img 
+             style={{ y: backgroundY }}
+             src="/products/cashews.webp" className="absolute bottom-[-5%] left-[-5%] w-64 object-contain drop-shadow-3xl blur-[12px] opacity-30" 
+           />
+        </div>
 
-          <motion.div variants={fadeUpVariant} className="flex flex-col sm:flex-row gap-6">
-            <Link to="/collection" className="group relative overflow-hidden bg-[#C5A365] text-[#1C110F] px-10 py-4 font-bold tracking-[0.2em] uppercase text-sm transition-all duration-500 hover:shadow-[0_0_40px_rgba(197,163,101,0.4)]">
-              <span className="relative z-10">Shop Now</span>
-              <div className="absolute inset-0 bg-white scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-0" />
-            </Link>
-            <Link to="/collection" className="group flex items-center justify-center gap-3 px-10 py-4 border border-white/20 text-white font-bold tracking-[0.2em] uppercase text-sm transition-all duration-500 hover:border-[#C5A365] hover:text-[#C5A365] hover:bg-[#C5A365]/5">
-              Explore Collection
-            </Link>
+        {/* Text Content */}
+        <div className="relative z-30 w-full max-w-7xl mx-auto px-6 h-full flex flex-col justify-center items-start pointer-events-none">
+          <motion.div 
+            style={{ y: textY, opacity }}
+            initial="hidden" animate="visible" variants={staggerContainer}
+            className="max-w-xl md:max-w-2xl mt-16 pointer-events-auto"
+          >
+            <motion.div variants={fadeUpVariant} className="mb-6">
+              <span className="font-serif text-[#EAE3D2]/80 text-sm tracking-widest uppercase block mb-4">Shree Ganesh Dry Fruits</span>
+              <div className="inline-block border border-[#C5A365]/30 bg-[#C5A365]/5 backdrop-blur-sm px-4 py-1.5 rounded-full">
+                <span className="text-[10px] tracking-[0.3em] uppercase text-[#C5A365] font-semibold">
+                  Nature's Finest
+                </span>
+              </div>
+            </motion.div>
+            
+            <motion.h1 variants={fadeUpVariant} className="text-6xl md:text-7xl lg:text-8xl font-serif mb-6 text-white leading-[1.05] drop-shadow-lg">
+              PURE<br/>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF1C5] to-[#D4AF37] italic font-light">
+                LUXURY
+              </span>
+            </motion.h1>
+
+            <motion.p variants={fadeUpVariant} className="mb-10 text-[#EAE3D2]/80 max-w-md text-base md:text-lg font-light leading-relaxed drop-shadow-md">
+              Handpicked from the finest farms. 100% natural premium dry fruits crafted for purity, taste, and richness.
+            </motion.p>
+
+            <motion.div variants={fadeUpVariant} className="flex flex-col sm:flex-row gap-5">
+              <Link to="/collection" className="group relative overflow-hidden bg-gradient-to-r from-[#D4AF37] to-[#C5A365] text-[#110A08] px-8 py-4 rounded-full font-bold tracking-[0.15em] uppercase text-xs transition-all duration-500 shadow-[0_10px_30px_rgba(197,163,101,0.2)] hover:shadow-[0_15px_40px_rgba(197,163,101,0.4)] hover:-translate-y-1">
+                <span className="relative z-10">Shop Now</span>
+                <div className="absolute inset-0 bg-white/20 scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-0" />
+              </Link>
+              <Link to="/collection" className="group relative overflow-hidden bg-white/5 border border-white/10 backdrop-blur-md text-white px-8 py-4 rounded-full font-bold tracking-[0.15em] uppercase text-xs transition-all duration-500 hover:bg-white/10 hover:border-white/30 hover:-translate-y-1">
+                <span className="relative z-10">Explore Collection</span>
+              </Link>
+            </motion.div>
           </motion.div>
-        </motion.div>
+        </div>
 
         {/* Scroll Indicator */}
         <motion.div 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 1 }}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
+          initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.5, duration: 1 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3 z-30 pointer-events-none"
         >
-          <span className="text-[10px] tracking-widest uppercase text-white/50">Scroll</span>
-          <div className="w-[1px] h-12 bg-white/20 relative overflow-hidden">
+          <motion.div 
+            animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+            className="w-6 h-10 border border-white/20 rounded-full flex justify-center p-1"
+          >
             <motion.div 
-              className="absolute top-0 left-0 w-full h-1/2 bg-[#C5A365]"
-              animate={{ y: [0, 48] }}
-              transition={{ repeat: Infinity, duration: 1.5, ease: "linear" }}
+              animate={{ y: [0, 12, 0], opacity: [1, 0, 1] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+              className="w-1 h-2 bg-[#C5A365] rounded-full"
             />
-          </div>
+          </motion.div>
+          <span className="text-[9px] tracking-widest uppercase text-white/40">Scroll to Explore</span>
         </motion.div>
       </section>
 

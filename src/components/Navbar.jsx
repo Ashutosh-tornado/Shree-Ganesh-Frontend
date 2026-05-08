@@ -4,7 +4,9 @@ import {
   ShoppingBag,
   Menu,
   X,
-  User
+  User,
+  Search,
+  Heart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -77,8 +79,11 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Collection", path: "/collection" },
-    { name: "Orders", path: "/orders" }
+    { name: "Shop", path: "/collection" },
+    { name: "Collections", path: "/collection" },
+    { name: "Our Story", path: "/about" },
+    { name: "Quality", path: "/quality" },
+    { name: "Contact", path: "/contact" }
   ];
 
   const isTransparent = isHomePage && !isScrolled;
@@ -94,68 +99,64 @@ const Navbar = () => {
       transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-700 border-b ${isTransparent ? 'border-white/10' : 'border-transparent'} ${navBgColor}`}
     >
-      <div className={`max-w-7xl mx-auto px-6 transition-all duration-700 flex items-center justify-between ${isScrolled ? 'py-4' : 'py-6 md:py-8'}`}>
+      <div className={`max-w-[1400px] mx-auto px-6 transition-all duration-700 flex items-center justify-between ${isScrolled ? 'py-4' : 'py-6 md:py-8'}`}>
 
-        {/* LEFT */}
-        <div className="flex items-center gap-4 flex-1">
-          {/* Mobile Menu */}
+        {/* LEFT - LOGO */}
+        <div className="flex-1 flex items-center justify-start">
+          {/* Mobile Menu Toggle */}
           <button
-            className={`md:hidden ${navTextColor} hover:${accentColor} transition-colors`}
+            className={`md:hidden ${navTextColor} hover:${accentColor} transition-colors mr-4`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           >
             {isMobileMenuOpen ? <X size={24} strokeWidth={1.5} /> : <Menu size={24} strokeWidth={1.5} />}
           </button>
-
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center gap-10">
-            {navLinks.map((link) => (
-              <Link
-                key={link.name}
-                to={link.path}
-                className={`text-[11px] font-bold tracking-[0.2em] uppercase ${navTextColor} hover:text-[#C5A365] transition-colors duration-300 relative group`}
-              >
-                {link.name}
-                <span className="absolute -bottom-2 left-0 w-full h-[1px] bg-[#C5A365] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-              </Link>
-            ))}
-          </nav>
-        </div>
-
-        {/* CENTER LOGO */}
-        <Link
-          to="/"
-          className="flex-shrink-0 flex flex-col items-center justify-center group"
-        >
-          {/* USER INSTRUCTION: Replace src with the uploaded logo image */}
-          {/* <img src="/logo.png" alt="Shree Ganesh Logo" className="h-12 object-contain" /> */}
           
-          <div className="text-center leading-none transform transition-transform duration-500 group-hover:scale-105">
-            <h1 className={`font-serif text-2xl md:text-3xl ${logoColor} transition-colors duration-500`}>
+          <Link to="/" className="flex flex-col group">
+            <h1 className={`font-serif text-xl md:text-2xl ${logoColor} transition-colors duration-500`}>
               Shree Ganesh
             </h1>
-            <span className={`text-[9px] md:text-[10px] tracking-[0.4em] uppercase ${accentColor} transition-colors duration-500 mt-2 block font-medium`}>
+            <span className={`text-[8px] md:text-[9px] tracking-[0.4em] uppercase ${accentColor} transition-colors duration-500 block font-medium`}>
               Dry Fruits
             </span>
-          </div>
-        </Link>
+          </Link>
+        </div>
 
-        {/* RIGHT */}
-        <div className="flex flex-1 items-center justify-end gap-6 md:gap-8">
-          {/* Account */}
+        {/* CENTER - NAVIGATION */}
+        <nav className="hidden lg:flex items-center justify-center gap-8 flex-[2]">
+          {navLinks.map((link) => (
+            <Link
+              key={link.name}
+              to={link.path}
+              className={`text-[10px] font-bold tracking-[0.2em] uppercase ${navTextColor} hover:text-[#C5A365] transition-colors duration-300 relative group`}
+            >
+              {link.name}
+              <span className="absolute -bottom-2 left-0 w-full h-[1px] bg-[#C5A365] scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+            </Link>
+          ))}
+        </nav>
+
+        {/* RIGHT - ICONS */}
+        <div className="flex-1 flex items-center justify-end gap-5 md:gap-6">
+          <button className={`${navTextColor} hover:text-[#C5A365] transition-colors duration-300 hidden md:block`}>
+            <Search size={20} strokeWidth={1.5} />
+          </button>
+          
+          <button className={`${navTextColor} hover:text-[#C5A365] transition-colors duration-300 hidden md:block`}>
+            <Heart size={20} strokeWidth={1.5} />
+          </button>
+
           <Link
             to="/login"
-            className={`hidden md:flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] uppercase ${navTextColor} hover:text-[#C5A365] transition-colors duration-300`}
+            className={`${navTextColor} hover:text-[#C5A365] transition-colors duration-300`}
           >
-            <User size={18} strokeWidth={1.5} />
-            <span className="hidden lg:block">Account</span>
+            <User size={20} strokeWidth={1.5} />
           </Link>
 
-          {/* Cart */}
           <Link
             to="/cart"
             className={`relative flex items-center justify-center ${navTextColor} hover:text-[#C5A365] transition-colors duration-300 group`}
           >
-            <ShoppingBag size={22} strokeWidth={1.5} className="group-hover:scale-110 transition-transform duration-300" />
+            <ShoppingBag size={20} strokeWidth={1.5} className="group-hover:scale-110 transition-transform duration-300" />
             
             <AnimatePresence>
               {cartCount > 0 && (
@@ -163,7 +164,7 @@ const Navbar = () => {
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   exit={{ scale: 0 }}
-                  className="absolute -top-2 -right-2 bg-[#C5A365] text-white text-[9px] font-bold w-4 h-4 rounded-full flex items-center justify-center shadow-sm"
+                  className="absolute -top-2 -right-2 bg-[#C5A365] text-white text-[9px] font-bold w-[18px] h-[18px] rounded-full flex items-center justify-center shadow-sm"
                 >
                   {cartCount}
                 </motion.span>
@@ -192,7 +193,7 @@ const Navbar = () => {
                 >
                   <Link
                     to={link.path}
-                    className="text-2xl font-serif text-white hover:text-[#C5A365] transition-colors inline-block"
+                    className="text-xl font-serif text-white hover:text-[#C5A365] transition-colors inline-block tracking-wide"
                   >
                     {link.name}
                   </Link>
@@ -203,15 +204,10 @@ const Navbar = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: navLinks.length * 0.1 }}
-                className="pt-6 border-t border-white/10 mt-2"
+                className="pt-6 border-t border-white/10 mt-2 flex gap-6 text-[#C5A365]"
               >
-                <Link
-                  to="/login"
-                  className="flex items-center gap-3 text-sm font-bold tracking-widest uppercase text-[#C5A365]"
-                >
-                  <User size={20} />
-                  Sign In / Register
-                </Link>
+                <Search size={24} strokeWidth={1.5} />
+                <Heart size={24} strokeWidth={1.5} />
               </motion.div>
             </div>
           </motion.div>

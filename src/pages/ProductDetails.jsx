@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { Minus, Plus, ShieldCheck, Truck, Star, Award, Heart } from "lucide-react";
+import { Minus, Plus, ShieldCheck, Truck, Star, Award, Heart, ShoppingBag } from "lucide-react";
 import { motion, AnimatePresence } from 'framer-motion';
 
 import toast from "react-hot-toast";
@@ -89,8 +89,8 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="bg-[#FDFBF7] min-h-screen">
-      <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto">
+    <div className="bg-[#FDFBF7] min-h-screen relative">
+      <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto relative">
         
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
