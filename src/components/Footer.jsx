@@ -21,7 +21,7 @@ const Footer = () => {
 
   return (
     <footer className="bg-[#110A08] text-white pt-24 pb-12 overflow-hidden border-t border-[#C5A365]/20">
-      <motion.div 
+      <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
@@ -29,7 +29,7 @@ const Footer = () => {
         className="container mx-auto px-6 md:px-12 max-w-7xl"
       >
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-20">
-          
+
           {/* Brand Info */}
           <motion.div variants={fadeUpVariant} className="space-y-6 pr-4">
             <Link to="/">
@@ -88,7 +88,7 @@ const Footer = () => {
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#C5A365] transition-colors duration-500 mt-1 shrink-0">
                   <MapPin size={14} className="text-[#C5A365] group-hover:text-white transition-colors" strokeWidth={1.5} />
                 </div>
-                <span className="text-sm text-white/60 leading-relaxed font-light mt-1.5">123 Luxury Avenue, Fort,<br/>Mumbai 400001</span>
+                <span className="text-sm text-white/60 leading-relaxed font-light mt-1.5">123 Luxury Avenue, Fort,<br />Mumbai 400001</span>
               </li>
               <li className="flex items-center gap-4 group">
                 <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-[#C5A365] transition-colors duration-500 shrink-0">

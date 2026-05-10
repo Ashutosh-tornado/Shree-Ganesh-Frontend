@@ -91,11 +91,11 @@ const ProductDetails = () => {
   return (
     <div className="bg-[#FDFBF7] min-h-screen relative">
       <div className="pt-32 pb-24 px-6 max-w-7xl mx-auto relative">
-        
+
         <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
 
           {/* LEFT IMAGE GALLERY */}
-          <motion.div 
+          <motion.div
             initial="hidden" animate="visible" variants={fadeUpVariant}
             className="sticky top-32"
           >
@@ -117,7 +117,7 @@ const ProductDetails = () => {
           </motion.div>
 
           {/* RIGHT DETAILS */}
-          <motion.div 
+          <motion.div
             initial="hidden" animate="visible" variants={fadeUpVariant}
             className="py-10"
           >
@@ -160,11 +160,10 @@ const ProductDetails = () => {
                     key={weight}
                     onClick={() => setSelectedWeight(weight)}
                     className={`px-8 py-4 text-[11px] uppercase tracking-widest font-bold transition-all duration-500 rounded-sm
-                    ${
-                      selectedWeight === weight
+                    ${selectedWeight === weight
                         ? "bg-[#1C110F] text-[#C5A365] border border-[#1C110F] shadow-[0_10px_30px_rgba(28,17,15,0.2)]"
                         : "bg-white text-[#1C110F] border border-[#EAE3D2] hover:border-[#C5A365]"
-                    }`}
+                      }`}
                   >
                     {weight}
                   </button>

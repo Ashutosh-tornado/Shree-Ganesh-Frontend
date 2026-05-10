@@ -99,9 +99,9 @@ const CartItem = ({ item, refreshCart }) => {
       {/* Image */}
       <Link to={`/product/${item.productId._id}`} className="shrink-0 w-32 h-40 md:w-40 md:h-48 bg-white border border-[#EAE3D2] overflow-hidden relative rounded-sm shadow-[0_10px_30px_rgba(0,0,0,0.03)] flex items-center justify-center p-4">
         <div className="absolute inset-0 bg-gradient-to-b from-[#EAE3D2]/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-        <img 
-          src={item.productId.image} 
-          alt={item.productId.name} 
+        <img
+          src={item.productId.image}
+          alt={item.productId.name}
           className="w-full h-full object-contain mix-blend-multiply transition-transform duration-1000 ease-out group-hover:scale-110 drop-shadow-md"
         />
       </Link>
@@ -121,7 +121,7 @@ const CartItem = ({ item, refreshCart }) => {
             </p>
           </div>
 
-          <button 
+          <button
             onClick={removeItem}
             className="text-[#1C110F]/40 hover:text-red-500 transition-colors p-2 -mr-2"
             title="Remove item"
@@ -134,7 +134,7 @@ const CartItem = ({ item, refreshCart }) => {
 
           {/* Qty */}
           <div className="flex items-center border border-[#EAE3D2] bg-white rounded-sm h-10 overflow-hidden shadow-sm">
-            <button 
+            <button
               onClick={decreaseQty}
               className="w-10 h-full flex items-center justify-center text-[#1C110F]/50 hover:text-[#C5A365] hover:bg-[#FDFBF7] transition-colors"
             >
@@ -143,7 +143,7 @@ const CartItem = ({ item, refreshCart }) => {
             <span className="w-10 text-center font-sans text-xs font-bold text-[#1C110F]">
               {item.quantity}
             </span>
-            <button 
+            <button
               onClick={increaseQty}
               className="w-10 h-full flex items-center justify-center text-[#1C110F]/50 hover:text-[#C5A365] hover:bg-[#FDFBF7] transition-colors"
             >

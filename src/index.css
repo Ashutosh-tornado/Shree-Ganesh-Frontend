@@ -8,8 +8,13 @@
   body {
     @apply bg-brand-light text-brand-text font-sans antialiased;
   }
-  
-  h1, h2, h3, h4, h5, h6 {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     @apply font-serif text-brand-dark;
   }
 }
@@ -24,13 +29,16 @@
 ::-webkit-scrollbar {
   width: 8px;
 }
+
 ::-webkit-scrollbar-track {
   background: #FDFBF7;
 }
+
 ::-webkit-scrollbar-thumb {
   background: #C5A365;
   border-radius: 4px;
 }
+
 ::-webkit-scrollbar-thumb:hover {
   background: #b08d4f;
 }

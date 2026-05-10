@@ -191,11 +191,10 @@ const Navbar = () => {
                     {/* Hover glow behind link */}
                     <span className="absolute inset-0 rounded-full bg-[#c79b58]/0 group-hover:bg-[#c79b58]/[0.04] transition-all duration-700" />
 
-                    <span className={`relative text-[9.5px] font-semibold tracking-[0.24em] uppercase transition-all duration-600 ${
-                      isActive(link.path)
-                        ? 'text-[#24180f]'
-                        : 'text-[#24180f]/45 group-hover:text-[#24180f]/85'
-                    }`}>
+                    <span className={`relative text-[9.5px] font-semibold tracking-[0.24em] uppercase transition-all duration-600 ${isActive(link.path)
+                      ? 'text-[#24180f]'
+                      : 'text-[#24180f]/45 group-hover:text-[#24180f]/85'
+                      }`}>
                       {link.name}
                     </span>
 
@@ -318,9 +317,8 @@ const Navbar = () => {
                   >
                     <Link
                       to={link.path}
-                      className={`group flex items-center justify-between py-[18px] transition-all duration-500 ${
-                        isActive(link.path) ? 'text-[#c79b58]' : 'text-white/55 hover:text-white/90 hover:pl-2'
-                      }`}
+                      className={`group flex items-center justify-between py-[18px] transition-all duration-500 ${isActive(link.path) ? 'text-[#c79b58]' : 'text-white/55 hover:text-white/90 hover:pl-2'
+                        }`}
                     >
                       <span className="font-serif text-[1.65rem] tracking-[-0.02em] leading-[1.1]">{link.name}</span>
                       {isActive(link.path) && (

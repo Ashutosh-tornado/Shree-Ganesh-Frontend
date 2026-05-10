@@ -111,7 +111,7 @@ const CartPage = () => {
     <div className="pt-32 pb-24 min-h-screen bg-[#FDFBF7] text-[#1C110F]">
       <div className="container mx-auto px-6 md:px-12 max-w-7xl">
 
-        <motion.div 
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={fadeUpVariant}
@@ -132,7 +132,7 @@ const CartPage = () => {
             <p className="text-[10px] tracking-[0.2em] uppercase text-[#1C110F]/50 font-bold">Loading Bag...</p>
           </div>
         ) : cartItems.length === 0 ? (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}
             className="flex flex-col items-center justify-center py-32 text-center"
           >
@@ -155,7 +155,7 @@ const CartPage = () => {
               <div className="border-t border-[#EAE3D2]">
                 <AnimatePresence mode="popLayout">
                   {cartItems.map((item, i) => (
-                    <motion.div 
+                    <motion.div
                       key={item._id || i}
                       initial={{ opacity: 0, x: -20 }}
                       animate={{ opacity: 1, x: 0 }}
@@ -163,9 +163,9 @@ const CartPage = () => {
                       transition={{ duration: 0.5, delay: i * 0.1 }}
                       className="border-b border-[#EAE3D2]"
                     >
-                      <CartItem 
-                        item={item} 
-                        refreshCart={fetchCart} 
+                      <CartItem
+                        item={item}
+                        refreshCart={fetchCart}
                       />
                     </motion.div>
                   ))}
@@ -182,7 +182,7 @@ const CartPage = () => {
 
             {/* RIGHT - SUMMARY */}
             <div className="lg:w-1/3">
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
                 className="bg-white p-8 lg:p-10 shadow-[0_20px_50px_rgba(0,0,0,0.03)] border border-[#EAE3D2]/50 sticky top-32 rounded-sm"
               >
@@ -207,8 +207,8 @@ const CartPage = () => {
                   <span className="text-3xl font-serif text-[#1C110F]">₹{total.toLocaleString('en-IN')}</span>
                 </div>
 
-                <button 
-                  onClick={handleCheckout} 
+                <button
+                  onClick={handleCheckout}
                   className="w-full group relative overflow-hidden bg-[#1C110F] text-white py-5 flex items-center justify-center text-[11px] font-bold tracking-[0.2em] uppercase rounded-sm shadow-[0_10px_30px_rgba(28,17,15,0.15)] mb-8"
                 >
                   <div className="absolute inset-0 bg-[#C5A365] scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-500 z-0" />

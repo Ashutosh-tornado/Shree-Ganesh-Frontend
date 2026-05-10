@@ -34,21 +34,21 @@ function App() {
 
         <Toaster position="top-right"
 
-        toastOptions={{
-    style: {
-      background: "#2f1b14",
-      color: "#fff",
-      fontSize: "14px",
-      borderRadius: "8px"
-    },
-    success: {
-      iconTheme: {
-        primary: "#d4a373",
-        secondary: "#fff"
-      }
-    }
-  }}
-        
+          toastOptions={{
+            style: {
+              background: "#2f1b14",
+              color: "#fff",
+              fontSize: "14px",
+              borderRadius: "8px"
+            },
+            success: {
+              iconTheme: {
+                primary: "#d4a373",
+                secondary: "#fff"
+              }
+            }
+          }}
+
         />
 
         <main className="flex-grow">
@@ -66,17 +66,17 @@ function App() {
 
             <Route path="/product/:id" element={<ProductDetails />} />
 
-              {/* 📦 Orders (IMPORTANT 🔥) */}
-  <Route 
-    path="/orders" 
-    element={
-      <ProtectedRoute>
-        <Orders />
-      </ProtectedRoute>
-    } 
-  />
+            {/* 📦 Orders (IMPORTANT 🔥) */}
+            <Route
+              path="/orders"
+              element={
+                <ProtectedRoute>
+                  <Orders />
+                </ProtectedRoute>
+              }
+            />
 
-<Route path="/success" element={<Success />} />
+            <Route path="/success" element={<Success />} />
 
             {/* ✅ Payment success */}
             <Route path="/success" element={<div>Payment Success 🎉</div>} />

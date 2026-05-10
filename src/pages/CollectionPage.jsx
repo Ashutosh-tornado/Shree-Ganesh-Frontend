@@ -83,7 +83,7 @@ const CollectionPage = () => {
       {/* HEADER SECTION */}
       <section className="pt-20 pb-16 px-6 relative overflow-hidden bg-[#1C110F] text-white">
         <div className="absolute inset-0 bg-gradient-to-b from-[#C5A365]/10 to-transparent z-0 pointer-events-none" />
-        <motion.div 
+        <motion.div
           initial="hidden"
           animate="visible"
           variants={fadeUpVariant}
@@ -96,7 +96,7 @@ const CollectionPage = () => {
             </p>
             <div className="w-12 h-[1px] bg-[#C5A365]/50" />
           </div>
-          
+
           <h1 className="font-serif text-5xl md:text-7xl lg:text-8xl text-white leading-tight mb-8">
             The Collection
           </h1>
@@ -158,9 +158,8 @@ const CollectionPage = () => {
                         setSortBy(option.value);
                         setIsSortOpen(false);
                       }}
-                      className={`w-full px-6 py-4 text-left text-[11px] uppercase tracking-widest transition-colors duration-300 hover:bg-[#FDFBF7] ${
-                        sortBy === option.value ? 'bg-[#FDFBF7] text-[#C5A365] font-bold' : 'text-[#1C110F]/70 font-semibold'
-                      }`}
+                      className={`w-full px-6 py-4 text-left text-[11px] uppercase tracking-widest transition-colors duration-300 hover:bg-[#FDFBF7] ${sortBy === option.value ? 'bg-[#FDFBF7] text-[#C5A365] font-bold' : 'text-[#1C110F]/70 font-semibold'
+                        }`}
                     >
                       {option.label}
                     </button>
@@ -189,7 +188,7 @@ const CollectionPage = () => {
 
         {!loading && !error && (
           <>
-            <motion.div 
+            <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
