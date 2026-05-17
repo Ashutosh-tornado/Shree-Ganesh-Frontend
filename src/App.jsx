@@ -21,6 +21,8 @@ import Orders from "./pages/Orders";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 import ProductDetails from "./pages/ProductDetails";
+import OurStoryPage from './pages/OurStory';
+import ContactPage from './pages/ContactPage';
 
 function App() {
   return (
@@ -56,6 +58,8 @@ function App() {
 
             <Route path="/" element={<HomePage />} />
             <Route path="/collection" element={<CollectionPage />} />
+            <Route path="/about" element={<OurStoryPage/>} />
+            <Route path="/contact" element={<ContactPage/>} />
 
             {/* 🛒 Cart is now PUBLIC (Guest + Logged in both) */}
             <Route path="/cart" element={<CartPage />} />

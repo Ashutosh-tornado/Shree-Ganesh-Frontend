@@ -49,10 +49,10 @@ const Navbar = () => {
 
   const navLinks = [
     { name: "Home", path: "/" },
-    { name: "Shop", path: "/collection" },
+    // { name: "Shop", path: "/collection" },
     { name: "Collections", path: "/collection" },
     { name: "Our Story", path: "/about" },
-    { name: "Quality", path: "/quality" },
+    // { name: "Quality", path: "/quality" },
     { name: "Contact", path: "/contact" }
   ];
 
@@ -191,7 +191,7 @@ const Navbar = () => {
                     {/* Hover glow behind link */}
                     <span className="absolute inset-0 rounded-full bg-[#c79b58]/0 group-hover:bg-[#c79b58]/[0.04] transition-all duration-700" />
 
-                    <span className={`relative text-[9.5px] font-semibold tracking-[0.24em] uppercase transition-all duration-600 ${isActive(link.path)
+                    <span className={`relative text-[13px] font-medium tracking-[0.18em] uppercase transition-all duration-600 ${isActive(link.path)
                       ? 'text-[#24180f]'
                       : 'text-[#24180f]/45 group-hover:text-[#24180f]/85'
                       }`}>
@@ -219,18 +219,18 @@ const Navbar = () => {
               <div className="flex-1 flex items-center justify-end gap-[2px]">
                 {/* Search */}
                 <NavIcon className="hidden md:flex" ariaLabel="Search">
-                  <Search size={17} strokeWidth={1.3} />
+                  <Search size={20} strokeWidth={1.3} />
                 </NavIcon>
 
                 {/* Wishlist */}
                 <NavIcon className="hidden md:flex" ariaLabel="Wishlist">
-                  <Heart size={17} strokeWidth={1.3} />
+                  <Heart size={20} strokeWidth={1.3} />
                 </NavIcon>
 
                 {/* Account */}
                 <Link to="/login" aria-label="Account">
                   <NavIcon ariaLabel="Account">
-                    <User size={17} strokeWidth={1.3} />
+                    <User size={20} strokeWidth={1.3} />
                   </NavIcon>
                 </Link>
 
@@ -240,7 +240,7 @@ const Navbar = () => {
                 {/* Cart */}
                 <Link to="/cart" className="relative" aria-label="Cart">
                   <NavIcon ariaLabel="Cart">
-                    <ShoppingBag size={17} strokeWidth={1.3} />
+                    <ShoppingBag size={20} strokeWidth={1.3} />
                   </NavIcon>
                   <AnimatePresence>
                     {cartCount > 0 && (
@@ -249,7 +249,7 @@ const Navbar = () => {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0, opacity: 0 }}
                         transition={{ type: 'spring', stiffness: 420, damping: 22 }}
-                        className="absolute top-[2px] right-[2px] flex items-center justify-center w-[15px] h-[15px] rounded-full bg-[#24180f] text-[#e8cfa0] text-[7.5px] font-bold ring-[1.5px] ring-[#fdfbf7]/90 shadow-[0_2px_8px_rgba(36,24,15,0.2)]"
+                        className="absolute top-[2px] right-[2px] flex items-center justify-center w-[15px] h-[15px] rounded-full bg-[#24180f] text-[#e8cfa0] text-[9.5px] font-bold ring-[1.5px] ring-[#fdfbf7]/90 shadow-[0_2px_8px_rgba(36,24,15,0.2)]"
                       >
                         {cartCount}
                       </motion.span>
